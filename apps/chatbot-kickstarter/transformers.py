@@ -9,6 +9,7 @@ from database import load_vectors
 
 def get_col_average_from_list_of_lists(list_of_lists):
     """Return the average of each column in a list of lists."""
+    """목록 목록에서 각 열의 평균을 반환합니다."""
     if len(list_of_lists) == 1:
         return list_of_lists[0]
     else:
@@ -17,10 +18,12 @@ def get_col_average_from_list_of_lists(list_of_lists):
         return average_embedding.tolist()
 
 # Create embeddings for a text using a tokenizer and an OpenAI engine
+# 토크나이저 및 OpenAI 엔진을 사용하여 텍스트 임베딩 생성
 
 
 def create_embeddings_for_text(text, tokenizer):
     """Return a list of tuples (text_chunk, embedding) and an average embedding for a text."""
+    """튜플 목록(text_chunk, embedding)과 텍스트의 평균 임베딩을 반환합니다."""
     token_chunks = list(chunks(text, TEXT_EMBEDDING_CHUNK_SIZE, tokenizer))
     text_chunks = [tokenizer.decode(chunk) for chunk in token_chunks]
 
@@ -36,8 +39,10 @@ def get_embeddings(text_array, engine):
     return openai.Engine(id=engine).embeddings(input=text_array)["data"]
 
 # Split a text into smaller chunks of size n, preferably ending at the end of a sentence
+# 텍스트를 크기 n의 더 작은 청크로 분할, 바람직하게는 문장의 끝에서 끝남
 def chunks(text, n, tokenizer):
     """Yield successive n-sized chunks from text."""
+    """텍스트에서 연속적인 n 크기 청크를 생성합니다."""
     tokens = tokenizer.encode(text)
     i = 0
     while i < len(tokens):
